@@ -1,16 +1,9 @@
 {
-  "version": 2,
-  "functions": {
-    "api/index.js": {
-      "runtime": "nodejs22.x"
-    }
-  },
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
-    { "source": "/manifest.json", "destination": "/api" },
-    { "source": "/health", "destination": "/api" },
-    { "source": "/catalog/:path*", "destination": "/api" },
-    { "source": "/meta/:path*", "destination": "/api" },
-    { "source": "/stream/:path*", "destination": "/api" },
-    { "source": "/", "destination": "/api" }
+    {
+      "source": "/(.*)",
+      "destination": "/api/$1"
+    }
   ]
 }
