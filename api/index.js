@@ -7,7 +7,7 @@ app.use(cors());
 
 // URL API gốc
 const API_BASE_V1 = 'https://phimapi.com/v1/api';
-const API_BASE_V1 = 'https://phimapi.com';
+const API_BASE_ROOT = 'https://phimapi.com';
 
 // Số lượng item trên 1 trang của PhimAPI (mặc định là 10 hoặc 24 tùy danh sách, trung bình tính khoảng 10-24 item/trang)
 const ITEMS_PER_PAGE = 24;
