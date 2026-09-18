@@ -1,58 +1,49 @@
-# NguonC Movie Add-on Server - Vercel Ready
+# NguonC Movie Add-on Server — Vercel Ready v3
 
-Stremio-compatible add-on server backed by the NguonC APIs.
+A Stremio-compatible add-on server backed by the NguonC APIs.
 
-## APIs
+## Included APIs
 
-- `https://phim.nguonc.com/api/films/phim-moi-cap-nhat?page=`
-- `https://phim.nguonc.com/api/films/danh-sach/phim-le?sort_field=update&page=`
-- `https://phim.nguonc.com/api/film/`
-- `https://phim.nguonc.com/api/films/search?keyword=`
+- Latest: `https://phim.nguonc.com/api/films/phim-moi-cap-nhat?page=`
+- Movies: `https://phim.nguonc.com/api/films/danh-sach/phim-le?sort_field=update&page=`
+- Detail: `https://phim.nguonc.com/api/film/{slug}`
+- Search: `https://phim.nguonc.com/api/films/search?keyword=`
 
-## Local setup
+## Vercel deploy
 
-Requirements: Node.js 22+.
+1. Push the project to GitHub.
+2. Import the repository into Vercel.
+3. Framework Preset: `Other`.
+4. Build Command: leave empty.
+5. Output Directory: leave empty.
+6. Node.js: 22.x (already pinned in `package.json`).
+7. Deploy.
+
+No `PORT` or `app.listen()` is required on Vercel.
+
+## Verify
+
+After deployment, open:
+
+- `/health`
+- `/manifest.json`
+- `/catalog/movie/nguonc-latest.json`
+- `/catalog/movie/nguonc-movies.json`
+- `/catalog/movie/nguonc-latest/search=Regeneration.json`
+
+Then install `/manifest.json` in the client.
+
+## Local development
 
 ```bash
 npm install
 npm start
 ```
 
-Open:
+Open `http://localhost:7000/manifest.json`.
 
-- http://localhost:7000/manifest.json
-- http://localhost:7000/health
+## Notes
 
-## Vercel setup
-
-1. Push this folder to GitHub.
-2. Import the repository in Vercel.
-3. Framework Preset: `Other`.
-4. No build command is required.
-5. Install command: `npm install`.
-6. Node.js runtime: `22.x`.
-7. Deploy.
-
-After deployment, test:
-
-```text
-https://YOUR-PROJECT.vercel.app/health
-https://YOUR-PROJECT.vercel.app/manifest.json
-```
-
-Then install the manifest URL in a compatible Stremio client.
-
-## Environment variables
-
-No environment variable is required for the basic Vercel deployment. Optional values:
-
-- `CACHE_TTL_SECONDS`
-- `REQUEST_TIMEOUT_MS`
-- `CONTACT_EMAIL`
-- `ADDON_BASE_URL` (mainly useful for local/custom-domain deployments)
-
-`PORT` is only used by the local Express server; Vercel manages the serverless runtime port.
-
-## Important
-
-The stream handler currently returns the `embed`/`link`/`url` exposed by the upstream NguonC API. An iframe/player URL is not automatically a direct HLS/MP4 stream.
+- The manifest advertises `movie` only in v3 because the current catalogs/API mapping are implemented for movies. Series can be added after dedicated series catalog/episode handling is verified.
+- The logo is served from `/public/logo.svg`; the manifest URL is generated from the incoming public host so it does not point to localhost on Vercel.
+- Stream URLs are passed through from NguonC. An `embed` URL is not automatically converted into a direct HLS/MP4 URL.

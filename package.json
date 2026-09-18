@@ -1,6 +1,6 @@
 {
   "name": "nguonc-stremio-addon",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Stremio-compatible movie add-on server backed by NguonC APIs",
   "type": "module",
   "main": "src/app.js",

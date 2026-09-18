@@ -2,8 +2,24 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
     {
-      "source": "/(.*)",
-      "destination": "/api/$1"
+      "source": "/manifest.json",
+      "destination": "/api/manifest.json"
+    },
+    {
+      "source": "/health",
+      "destination": "/api/health"
+    },
+    {
+      "source": "/catalog/:path*",
+      "destination": "/api/catalog/:path*"
+    },
+    {
+      "source": "/meta/:path*",
+      "destination": "/api/meta/:path*"
+    },
+    {
+      "source": "/stream/:path*",
+      "destination": "/api/stream/:path*"
     }
   ]
 }
