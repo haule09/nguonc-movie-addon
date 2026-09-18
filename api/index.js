@@ -7,7 +7,7 @@ app.use(cors());
 
 // URL API gốc
 const API_BASE_V1 = 'https://phimapi.com/v1/api';
-// const API_BASE_V1 = 'https://phimapi.com';
+const API_BASE_V1 = 'https://phimapi.com';
 
 // Số lượng item trên 1 trang của PhimAPI (mặc định là 10 hoặc 24 tùy danh sách, trung bình tính khoảng 10-24 item/trang)
 const ITEMS_PER_PAGE = 24;
@@ -91,7 +91,7 @@ app.get('/catalog/:type/:id/:extra?.json', async (req, res) => {
             url = `${API_BASE_V1}/tim-kiem?keyword=${encodeURIComponent(searchQuery)}&limit=100&page=${page}`;
         } else if (id === 'phimapi-latest') {
             // Phim mới cập nhật với query ?page=
-            url = `${API_BASE_V1}/danh-sach/phim-moi-cap-nhat?page=${page}`;
+            url = `${API_BASE_ROOT}/danh-sach/phim-moi-cap-nhat?page=${page}`;
         } else if (id === 'phimapi-phimle') {
             // Phim lẻ mới nhất với query ?page=
             url = `${API_BASE_V1}/danh-sach/phim-le?sort_field=year&page=${page}`;
@@ -129,7 +129,7 @@ app.get('/meta/:type/:id.json', async (req, res) => {
     const slug = id.replace('phimapi_', '');
 
     try {
-        const response = await axios.get(`${API_BASE_V1}/phim/${slug}`, { timeout: 8000 });
+        const response = await axios.get(`${API_BASE_ROOT}/phim/${slug}`, { timeout: 8000 });
         const movieData = response.data?.movie;
 
         if (!movieData) return res.json({ meta: {} });
@@ -160,7 +160,7 @@ app.get('/stream/:type/:id.json', async (req, res) => {
     const slug = id.replace('phimapi_', '');
 
     try {
-        const response = await axios.get(`${API_BASE_V1}/phim/${slug}`, { timeout: 8000 });
+        const response = await axios.get(`${API_BASE_ROOT}/phim/${slug}`, { timeout: 8000 });
         const episodesData = response.data?.episodes || [];
 
         const streams = [];
