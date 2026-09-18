@@ -1,25 +1,15 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "rewrites": [
-    {
-      "source": "/manifest.json",
-      "destination": "/api/manifest.json"
-    },
-    {
-      "source": "/health",
-      "destination": "/api/health"
-    },
-    {
-      "source": "/catalog/:path*",
-      "destination": "/api/catalog/:path*"
-    },
-    {
-      "source": "/meta/:path*",
-      "destination": "/api/meta/:path*"
-    },
-    {
-      "source": "/stream/:path*",
-      "destination": "/api/stream/:path*"
-    }
-  ]
+    "version": 2,
+    "builds": [
+        {
+            "src": "api/index.js",
+            "use": "@vercel/node"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/(.*)",
+            "dest": "api/index.js"
+        }
+    ]
 }
